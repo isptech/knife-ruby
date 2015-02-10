@@ -45,6 +45,36 @@ if [ "${cmd}" = "ssh" ]; then
 
 fi
 
+if [ "${cmd}" = "winrm" ]; then
+
+  if [ -z "${search}" ]; then
+      echo "ERROR: The knife search is not set."
+      exit 1
+  fi
+
+  if [ -z "${winrm_cmd}" ]; then
+      echo "ERROR: The knife winrm cmd is not set."
+      exit 1
+  fi
+
+  if [ -z "${user}" ]; then
+      echo "ERROR: User not set."
+      exit 1
+  fi
+
+  if [ -z "${password}" ]; then
+      echo "ERROR: Password not set."
+      exit 1
+  fi
+
+  echo "All parameters have been provided..."
+
+  knife winrm "${search}" "${winrm_cmd}" -x ${user} -P "${password}" -a 'ipaddress'
+
+fi
+
+
+
 
 
 
