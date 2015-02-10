@@ -41,7 +41,7 @@ if [ "${cmd}" = "ssh" ]; then
 
   echo "All parameters have been provided..."
 
-  echo `knife ssh "${search}" "${ssh_cmd}" -x ${user} -i /etc/chef/${pem} -a 'ipaddress'`
+  knife ssh "${search}" "${ssh_cmd}" -x ${user} -i /etc/chef/${pem} -a 'ipaddress'
 
 fi
 
