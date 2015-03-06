@@ -74,8 +74,19 @@ if [ "${cmd}" = "winrm" ]; then
 fi
 
 
+#knife exec -E "nodes.find('name:aws-us-west2-a2-gc-uat1') {|n| puts n.run_list('role[gc-lb-a]');n.save}"
+if [ "${cmd}" = "exec" ]; then
 
+  if [ -z "${exec_cmd}" ]; then
+      echo "ERROR: The knife exec cmd is not set."
+      exit 1
+  fi
 
+  echo "All parameters have been provided..."
+
+  knife exec -E "${exec_cmd}"
+
+fi
 
 
 
