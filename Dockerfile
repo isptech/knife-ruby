@@ -23,5 +23,5 @@ RUN ln -s /etc/chef ~/.chef
 
 RUN ln -s /etc/chef /.chef
 
-WORKDIR /
+WORKDIR /etc/chef
 CMD ["/main.sh"]
