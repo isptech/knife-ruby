@@ -214,6 +214,58 @@ if [ "${cmd}" = "ec2" ]; then
 fi
 
 
+if [ "${cmd}" = "bootstrap" ]; then
+
+  if [ -z "${ipaddress}" ]; then
+      echo "ERROR: The ip address is not set."
+      exit 1
+  fi
+
+  if [ -z "${node_name}" ]; then
+      echo "ERROR: The node name is not set."
+      exit 1
+  fi
+
+  if [ -z "${user}" ]; then
+      echo "ERROR: User type not set."
+      exit 1
+  fi
+
+  if [ -z "${environment}" ]; then
+      echo "ERROR: Chef environment is not set."
+      exit 1
+  fi
+
+  if [ -z "${password}" ]; then
+    echo "ERROR: Either PEM or Password not set."
+    exit 1
+  fi
+
+  if [ -z "${chef_secret_file}" ]; then
+      echo "ERROR: Chef secret file not set."
+      exit 1
+  fi
+
+  if [ -z "${chef_version}" ]; then
+      echo "ERROR: Chef version not set."
+      exit 1
+  fi
+
+  echo "All parameters have been provided..."
+
+  knife bootstrap windows winrm ${ipaddress} \
+  -N "${node_name}" \
+  --winrm-user "${user}" \
+  --winrm-password "${password}" \
+  --environment "${environment}" \
+  --secret-file /etc/chef/${chef_secret_file} \
+  --bootstrap-version ${chef_version}
+
+fi
+
+
+
+
 #
 # Finished operations
 #
