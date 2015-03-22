@@ -119,9 +119,12 @@ if [ "${cmd}" = "ec2" ]; then
       exit 1
   fi
 
+  #linux needs pem file, windows needs password
   if [ -z "${pem}" ]; then
-      echo "ERROR: PEM file not set."
+    if [ -z "${password}" ]; then
+      echo "ERROR: Either PEM or Password not set."
       exit 1
+    fi
   fi
 
   if [ -z "${aws_tags}" ]; then
@@ -166,23 +169,47 @@ if [ "${cmd}" = "ec2" ]; then
 
   echo "All parameters have been provided..."
 
-  knife ec2 server create \
-  --image "${image}" \
-  -g ${security_group} \
-  --node-name "${node_name}" \
-  -x "${user}" \
-  --environment "${environment}" \
-  -s ${subnet} \
-  -i /etc/chef/${pem} \
-  --secret-file /etc/chef/${chef_secret_file} \
-  -f ${instance_size} \
-  --region ${region} \
-  -Z ${zone} \
-  --aws-access-key-id ${access_key} \
-  --ssh-key ${secret_key} \
-  --bootstrap-version ${chef_version} \
-  -T "${aws_tags}" \
+  if [ -z "${pem}" ]; then
 
+    knife ec2 server create \
+    --image "${image}" \
+    -g ${security_group} \
+    --node-name "${node_name}" \
+    --environment "${environment}" \
+    -s ${subnet} \
+    --secret-file /etc/chef/${chef_secret_file} \
+    -f ${instance_size} \
+    --region ${region} \
+    -Z ${zone} \
+    --aws-access-key-id ${access_key} \
+    --ssh-key ${secret_key} \
+    --bootstrap-version ${chef_version} \
+    -x "${user}" \
+    -P "${password}" \
+    -T "${aws_tags}"
+
+  fi
+
+  if [ -z "${password}" ]; then
+
+    knife ec2 server create \
+    --image "${image}" \
+    -g ${security_group} \
+    --node-name "${node_name}" \
+    --environment "${environment}" \
+    -s ${subnet} \
+    --secret-file /etc/chef/${chef_secret_file} \
+    -f ${instance_size} \
+    --region ${region} \
+    -Z ${zone} \
+    --aws-access-key-id ${access_key} \
+    --ssh-key ${secret_key} \
+    --bootstrap-version ${chef_version} \
+    -x "${user}" \
+    -i /etc/chef/${pem} \
+    -T "${aws_tags}"
+
+  fi
 
 fi
 
