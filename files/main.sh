@@ -264,6 +264,23 @@ if [ "${cmd}" = "bootstrap" ]; then
 fi
 
 
+if [ "${cmd}" = "run_list" ]; then
+
+  if [ -z "${node_name}" ]; then
+      echo "ERROR: The node name is not set."
+      exit 1
+  fi
+
+  if [ -z "${run_list}" ]; then
+      echo "ERROR: run_list not set."
+      exit 1
+  fi
+
+  echo "All parameters have been provided..."
+
+  knife node run_list set ${node_name} "${run_list}"
+
+fi
 
 
 #
