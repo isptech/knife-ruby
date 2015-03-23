@@ -11,7 +11,13 @@ Where your chef files (knife.rb, pem, etc...) are located ~/chef, -v is used to 
 Supported cmd are "winrm", "ssh", "exec", "ec2", "bootstrap"
 
 winrm_cmd is the command to run on windows
+
 ssh_cmd is the command to run on linux
+
 exec is the command to run knife commands (example: add a role to a node)
+
 ec2 is the command to create a server in aws
+
 bootstrap is the command to attach a windows machine to chef (ec2 windows usually times out and you need to run bootstrap after ec2 command)
+
+
