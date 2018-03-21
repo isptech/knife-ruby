@@ -1,9 +1,10 @@
 # knife-ruby
 Docker container to run knife all types of CHEF commands.  This docker container was built for two purporses.  
 
-1) Don't need to worry about development environment having the necessary ruby gems, pem files, aws credentials, etc... 
 
-2) Can wire into things like teamcity / jenkins where your build agents can execute docker runs (currently all my team's chef orchestration is fronted by Teamcity through these docker images)
+1) Don't need to worry about development environment having the necessary Ruby gems, pem files, AWS credentials, etc... 
+
+2) Can wire into things like Teamcity / Jenkins where your build agents can execute docker runs (currently all my team's chef orchestration is fronted by Teamcity through these docker images)
 
 docker run --env cmd="winrm" --env search="os:windows" --env user="WINRRM-USER" --env winrm_cmd="hostname" --env password="WINRM-PASSWORD" -v ~/chef:/etc/chef jcastillo/knife-ruby:v3
 
@@ -24,4 +25,4 @@ ec2 is the command to create a server in aws
 
 bootstrap is the command to attach a windows machine to chef (ec2 windows usually times out and you need to run bootstrap after ec2 command)
 
-
+Original credit for this image goes to Github user JC1738
